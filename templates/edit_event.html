@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Rediger arrangement</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+        {{ form.name.label }} {{ form.name(class="form-control") }}
+    </div>
+    <div class="mb-3">
+        {{ form.description.label }} {{ form.description(class="form-control") }}
+    </div>
+    <div class="mb-3">
+        {{ form.date.label }} {{ form.date(class="form-control") }}
+    </div>
+    <div class="mb-3">
+        {{ form.location.label }} {{ form.location(class="form-control") }}
+    </div>
+    {{ form.submit(class="btn btn-primary") }}
+</form>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Mine arrangementer</h2>
+
+{% for event in events %}
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">{{ event.name }}</h5>
+        <p class="card-text">{{ event.description }}</p>
+        <p class="card-text"><small>{{ event.date.strftime('%Y-%m-%d %H:%M') }} - {{ event.location }}</small></p>
+        <a href="{{ url_for('views.event_detail', event_id=event.id) }}" class="btn btn-primary btn-sm">Se detaljer</a>
+        <a href="{{ url_for('views.edit_event', event_id=event.id) }}" class="btn btn-secondary btn-sm">Rediger</a>
+        <form action="{{ url_for('views.delete_event', event_id=event.id) }}" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-danger btn-sm">Slett</button>
+        </form>
+    </div>
+</div>
+{% else %}
+<p>Du har ikke opprettet noen arrangementer enda.</p>
+{% endfor %}
+
+{% endblock %}

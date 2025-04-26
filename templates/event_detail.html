@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>{{ event.name }}</h1>
+    <p><strong>Beskrivelse:</strong> {{ event.description }}</p>
+    <p><strong>Dato:</strong> {{ event.date.strftime('%d.%m.%Y %H:%M') }}</p>
+    <p><strong>Sted:</strong> {{ event.location }}</p>
+
+    {% if event.image %}
+        <div style="margin-top: 20px;">
+            <img src="{{ url_for('static', filename='uploads/' ~ event.image) }}" alt="Event Bilde" style="max-width:500px; height:auto;">
+        </div>
+    {% endif %}
+
+    {% if current_user.is_authenticated %}
+        {% if is_registered %}
+            <form action="{{ url_for('views.unregister', event_id=event.id) }}" method="POST" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-danger">Meld deg av</button>
+            </form>
+        {% else %}
+            <form action="{{ url_for('views.register_event', event_id=event.id) }}" method="POST" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-success">Meld på</button>
+            </form>
+        {% endif %}
+    {% else %}
+        <p>Logg inn for å melde deg på eller av.</p>
+    {% endif %}
+
+    <a href="{{ url_for('views.home') }}" class="btn btn-primary mt-3">Tilbake til oversikten</a>
+{% endblock %}
